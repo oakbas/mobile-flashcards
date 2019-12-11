@@ -10,22 +10,23 @@ function decks (state={}, action) {
     case ADD_DECK:
       return {
         ...state,
-        [action.deck.title]: action.deck
-      }
-    case REMOVE_DECK:
-      const newState = state
-      delete newState[action.deck]
-      return {
-        ...newState
-      }
-    case ADD_CARD:
-      return {
-        ...state,
-        [action.card.deckName]:{
-            ...state[action.card.deckName],
-            questions: [...state[action.card.deckName].questions, action.card.query]
-          }
+        [action.id]: {
+          id: action.id,
+          name: action.name,
+          cards: []
         }
+      }
+      case ADD_CARD:
+        return {
+          ...state,
+          [action.deckId]: {
+            ...state[action.deckId],
+            cards: [
+              ...state[action.deckId].cards,
+              { question: action.question, answer: action.answer }
+            ]
+          }
+        };
     default:
       return state
   }

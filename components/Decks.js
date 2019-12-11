@@ -3,49 +3,56 @@ import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native
 import {receiveDecks} from '../actions/index'
 import { fetchDecks } from '../utils/api'
 import { connect } from 'react-redux'
-import { DeckListItem } from './DeckListItem'
 import TextButton from './TextButton'
 
 class Decks extends Component {
+  componentDidMount() {
+    fetchDecks()
+      .then(data => {
+        this.props.receiveDecks(data);
+      })
+      .then(() =>
+        this.setState(() => ({
+          ready: true
+        }))
+      );
+  }
   state = {
     ready: false
   };
 
-  componentDidMount(){
-    const { dispatch } = this.props
-    fetchDecks()
-      .then((decks)=>dispatch(receiveDecks(decks)))
-      .then(() => this.setState(() => ({ready: true})));  
-  }
-
-  addDeck = () => {
-    this.props.navigation.navigate("AddDeck")
-  }
+  renderItem = ({ item }) => {
+    return (
+      <View>
+        <TouchableOpacity
+        style={styles.container}
+        onPress={() =>
+        navigation.navigate('DeckEdit', { deckId: id, name: name })
+      }>
+        <Text>{item.name}</Text>
+        <Text>Card Counts: {item.cards.length}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   render() {
     const { decks, navigation } = this.props
-
     return Object.values(decks).length > 0 ? (
       <View style={styles.container}>
         <FlatList
-          data={Object.values(decks)}
-          renderItem={({ item }) => (
-            <DeckListItem
-              id={item.id}
-              name={item.name}
-              cardCount={item.cards.length}
-              navigation = {this.props.navigation}
-            />
-          )}
-          keyExtractor={(item, index) => item.name}
+          data={decks && Object.values(decks)}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => item.id}
         />
       </View>
-    ) : (
+    ) :
+    (
       <View style={styles.blank}>
-        <Text style={styles.title}>No Decks available, please add a deck!</Text>
+        <Text style={styles.title}>No decks available, please add a deck!</Text>
         <TextButton
             onPress={() => {
-              navigation.navigate("AddDeck")
+              navigation.navigate('AddDeck')
             }}
           > Create Deck </TextButton>
       </View>
@@ -54,10 +61,10 @@ class Decks extends Component {
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
+  container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
+    marginTop: 100
   },
   metricCounter: {
     width: 85,
@@ -66,19 +73,10 @@ const styles = StyleSheet.create({
   },
 })
 
-/*
-        <TextButton
-            onPress={() => {
-              navigation.navigate("AddDeck")
-            }}
-          > Add Deck </TextButton>
-*/
-
-
-function mapStateToProps (decks) {
-  return{
-    decks
+function mapDispatchToProps(dispatch){
+  return {
+      receiveDecks: (decks) => dispatch(receiveDecks(decks))
   }
 }
-
-export default connect(mapStateToProps)(Decks)
+const mapStateToProps = decks => ({ decks });
+export default connect(mapStateToProps, mapDispatchToProps)(Decks)

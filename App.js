@@ -5,10 +5,14 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Decks from './components/Decks'
+import DeckEdit from './components/DeckEdit'
+import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer} from 'react-navigation'
 import { purple, white } from './utils/color'
 import { FontAwesome, Entypo } from '@expo/vector-icons'
 import Constants from 'expo-constants'
+import { AsyncStorage } from 'react-native'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -17,6 +21,8 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
     </View>
   )
 }
+
+AsyncStorage.clear();
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -56,7 +62,34 @@ const Tabs = createBottomTabNavigator({
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
-  }
+  },
+  DeckEdit: {
+    screen: DeckEdit,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    })
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    })
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black',
+      }
+    })
+  },
 })
 
 const AppContainer = createAppContainer(MainNavigator);
