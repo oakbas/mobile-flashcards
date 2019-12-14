@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Card from './Card';
 import CardResult from './CardResult'
 import Result from './Result'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
 
@@ -49,6 +50,8 @@ class Quiz extends Component {
         const currentCard = deck.cards[this.state.currCardIndex]
 
         if (this.state.currCardIndex >= totalQuestions) {
+            clearLocalNotification();
+            setLocalNotification();
             return (
                 <Result
                 correctAnswers={this.state.correctAnswers}
