@@ -22,12 +22,13 @@ class Decks extends Component {
   };
 
   renderItem = ({ item }) => {
+    const { navigation } = this.props;
     return (
       <View>
         <TouchableOpacity
-        style={styles.container}
+        style={styles.deckContainer}
         onPress={() =>
-        navigation.navigate('DeckEdit', { deckId: id, name: name })
+        navigation.navigate('DeckEdit', { deckId: item.id, name: item.name })
       }>
         <Text>{item.name}</Text>
         <Text>Card Counts: {item.cards.length}</Text>
@@ -51,10 +52,8 @@ class Decks extends Component {
       <View style={styles.blank}>
         <Text style={styles.title}>No decks available, please add a deck!</Text>
         <TextButton
-            onPress={() => {
-              navigation.navigate('AddDeck')
-            }}
-          > Create Deck </TextButton>
+        onPress={() => { navigation.navigate('AddDeck')}}
+        > Create Deck </TextButton>
       </View>
     );
   }
@@ -63,11 +62,17 @@ class Decks extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 100
   },
-  metricCounter: {
-    width: 85,
+  title: {
+    margin: 20,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  deckContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },

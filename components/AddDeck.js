@@ -41,6 +41,10 @@ class AddDeck extends Component {
         deckId: deck.id
       });
 
+      this.setState({
+        input: ''
+      });
+
     } else {
       this.setState({
         message: 'Please fill in a title for your deck',
@@ -53,23 +57,23 @@ class AddDeck extends Component {
     const { input } = this.state
 
     return(
-        <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View style={styles.center}>
-            <Text style={styles.label}>What is the title of your new deck?</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Title of New Deck'
-            onChangeText={this.handleInputChange}
-            value={input}
-            />
-            <View>
-              <Text style={styles.message}>{this.state.message}</Text>
-            </View>
-            <TextButton onPress={this.handleSubmit}>
-              <Text>Add Deck</Text>
-            </TextButton>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
+      <View style={styles.center}>
+        <Text style={styles.label}>What is the title of your new deck?</Text>
+        <TextInput
+        style={styles.input}
+        placeholder='Title of New Deck'
+        onChangeText={this.handleInputChange}
+        value={input}
+        />
+        <View>
+          <Text style={styles.message}>{this.state.message}</Text>
         </View>
-        </KeyboardAvoidingView>
+        <TextButton onPress={this.handleSubmit}>
+          <Text>Add Deck</Text>
+        </TextButton>
+      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -77,13 +81,13 @@ class AddDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   label: {
-    fontSize:30, 
-    color:'black', 
-    textAlign:'center'
+    fontSize: 30, 
+    color: 'black', 
+    textAlign: 'center'
   },
   input: {
     height: 40, 
@@ -95,13 +99,12 @@ const styles = StyleSheet.create({
   },
   message: {
     color: red,
-    textAlign: "center"
+    textAlign: 'center'
   }
 });
 
 const mapDispatchToProps = dispatch => ({
   addDeck: (id, name) => dispatch(addDeck(id, name))
 });
-
 
 export default connect(null, mapDispatchToProps)(AddDeck)
