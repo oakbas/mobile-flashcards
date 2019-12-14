@@ -4,6 +4,7 @@ import {receiveDecks} from '../actions/index'
 import { fetchDecks } from '../utils/api'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
+import { white, purple } from '../utils/color'
 
 class Decks extends Component {
   componentDidMount() {
@@ -24,14 +25,14 @@ class Decks extends Component {
   renderItem = ({ item }) => {
     const { navigation } = this.props;
     return (
-      <View>
+      <View style={styles.container}>
         <TouchableOpacity
-        style={styles.deckContainer}
+        style={styles.button}
         onPress={() =>
         navigation.navigate('DeckEdit', { deckId: item.id, name: item.name })
       }>
-        <Text>{item.name}</Text>
-        <Text>Card Counts: {item.cards.length}</Text>
+        <Text style={styles.text}>Title: {item.name}</Text>
+        <Text style={styles.text}>Card Counts: {item.cards.length}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -49,7 +50,7 @@ class Decks extends Component {
       </View>
     ) :
     (
-      <View style={styles.blank}>
+      <View style={styles.container}>
         <Text style={styles.title}>No decks available, please add a deck!</Text>
         <TextButton
         onPress={() => { navigation.navigate('AddDeck')}}
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 100
+    marginTop: 30
   },
   title: {
     margin: 20,
@@ -71,17 +72,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
-  deckContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  button: {
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: purple,
+    backgroundColor: white,
+    margin: 10,
+    padding: 10,
+    width: 200
   },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 })
 
 function mapDispatchToProps(dispatch){
   return {
-      receiveDecks: (decks) => dispatch(receiveDecks(decks))
+    receiveDecks: (decks) => dispatch(receiveDecks(decks))
   }
 }
+
 const mapStateToProps = decks => ({ decks });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Decks)

@@ -24,7 +24,6 @@ class AddDeck extends Component {
   };
 
   handleSubmit = () => {
-    const { decks } = this.props
 
     if (this.state.input !== '') {
 
@@ -58,8 +57,8 @@ class AddDeck extends Component {
 
     return(
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      <View style={styles.center}>
-        <Text style={styles.label}>What is the title of your new deck?</Text>
+      <View>
+        <Text style={styles.title}>What is the title of your new deck?</Text>
         <TextInput
         style={styles.input}
         placeholder='Title of New Deck'
@@ -81,10 +80,10 @@ class AddDeck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 100
   },
-  label: {
+  title: {
     fontSize: 30, 
     color: 'black', 
     textAlign: 'center'

@@ -1,22 +1,16 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { green, red, purple, gray} from '../utils/color'
+import { green, red, white} from '../utils/color'
 
 export default function CardResult({ recordCard }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Correct or Incorrect?</Text>
       <View style={styles.actions}>
-        <TouchableOpacity
-          style={styles.correctBtn}
-          onPress={() => recordCard(true)}
-        >
+        <TouchableOpacity style={styles.correctBtn} onPress={() => recordCard(true)}>
           <Text style={styles.correctBtnText}>Correct</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.incorrectBtn}
-          onPress={() => recordCard(false)}
-        >
+        <TouchableOpacity style={styles.incorrectBtn} onPress={() => recordCard(false)}>
           <Text style={styles.incorrectBtnText}>Incorrect</Text>
         </TouchableOpacity>
       </View>
@@ -36,7 +30,7 @@ const styles = StyleSheet.create({
       textAlign: 'center'
     },
     actions: {
-      marginTop: 20
+      marginTop: 10
     },
     correctBtnText: {
       textAlign: 'center',
@@ -47,16 +41,18 @@ const styles = StyleSheet.create({
       color: red,
     },
     correctBtn: {
+      borderWidth: 1,
       borderRadius: 5,
       backgroundColor: 'white',
-      borderColor: 'red',
+      borderColor: 'green',
       margin: 10,
       width: 100
     },
     incorrectBtn: {
+      borderWidth: 1,
       borderRadius: 5,
       backgroundColor: 'white',
-      borderColor: 'green',
+      borderColor: 'red',
       margin: 10,
       width: 100
     },

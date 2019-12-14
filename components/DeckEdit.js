@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View , Text, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
-import { gray } from '../utils/color'
 
 class DeckEdit extends Component {
     render() {
@@ -10,12 +9,12 @@ class DeckEdit extends Component {
       return (
       <View style={styles.container}>
           <View>
-              <Text style={styles.title}>{deck.name}</Text>
-              <Text style={styles.cardCount}>Card Counts: {deck.cards.length}</Text>
+            <Text style={styles.title}>{deck.name}</Text>
+            <Text style={styles.cardCount}>Card Counts: {deck.cards.length}</Text>
           </View>
-          <View style={styles.body}>
-              <TextButton onPress={() => navigation.navigate('AddCard', { deckId: deck.id })}>
-                  <Text> Add New Card </Text>
+          <View>
+            <TextButton onPress={() => navigation.navigate('AddCard', { deckId: deck.id })}>
+              <Text> Add New Card </Text>
           </TextButton>
           {deck.cards.length !== 0 && (
           <TextButton onPress={() => navigation.navigate('Quiz', { deck })}>
@@ -35,11 +34,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   title: {
-    fontSize: 18,
+    fontSize: 30,
     textAlign: 'center'
   },
   cardCount: {
-    color: gray,
+    fontSize: 20,
     textAlign: 'center',
     marginBottom: 15
   }

@@ -42,7 +42,7 @@ class AddCard extends Component {
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View style={styles.element}>
+        <View>
           <TextInput
             placeholder='Question'
             style={styles.input}

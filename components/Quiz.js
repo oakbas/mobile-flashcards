@@ -62,7 +62,7 @@ class Quiz extends Component {
             return (
                 <View style={styles.container}>
                   <Card card={currentCard} />
-                  <Text>{this.getRemainingCount()} card remains</Text>
+                  <Text style={styles.text}>{this.getRemainingCount()} card remains</Text>
                   <CardResult recordCard={this.recordCard} />
                 </View>
             );
@@ -74,7 +74,12 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
-      marginTop: 100
+      marginTop: 50
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
     }
 })
 
